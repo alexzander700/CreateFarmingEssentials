@@ -19,7 +19,8 @@ public final class ModBlocks {
             new TrellisBlock(BlockBehaviour.Properties.of()
                     .mapColor(MapColor.WOOD)
                     .instabreak()     // breaks instantly by hand, same as crops
-                    .sound(SoundType.WOOD)
+                    .randomTicks()    // needed for crop growth
+                    .sound(SoundType.SCAFFOLDING)
                     .noCollission()   // walk-through, like crops
                     .noOcclusion()    // neighbouring blocks still render their faces
                     .pushReaction(PushReaction.DESTROY)));
