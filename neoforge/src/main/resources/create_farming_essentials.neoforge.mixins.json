@@ -1,0 +1,12 @@
+{
+  "required": true,
+  "package": "com.ingotcraft.create_farming_essentials.neoforge.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "minVersion": "0.8",
+  "mixins": [
+    "HarvesterMovementBehaviourMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

@@ -43,3 +43,6 @@ side = "BOTH"
 
 [[mixins]]
 config = "create_farming_essentials.mixins.json"
+
+[[mixins]]
+config = "create_farming_essentials.neoforge.mixins.json"

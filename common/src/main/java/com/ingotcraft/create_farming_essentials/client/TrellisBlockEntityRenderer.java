@@ -7,7 +7,7 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.block.BlockRenderDispatcher;
 
-/** Draws the planted crop's normal block model inside the trellis. */
+/** Draws the planted crop's block model for its current state inside the trellis. */
 public class TrellisBlockEntityRenderer implements BlockEntityRenderer<TrellisBlockEntity> {
     private final BlockRenderDispatcher blockRenderer;
 
@@ -19,6 +19,8 @@ public class TrellisBlockEntityRenderer implements BlockEntityRenderer<TrellisBl
     public void render(TrellisBlockEntity trellis, float partialTick, PoseStack poseStack,
                        MultiBufferSource buffer, int packedLight, int packedOverlay) {
         trellis.getCrop().ifPresent(crop ->
-                blockRenderer.renderSingleBlock(crop.displayState().get(), poseStack, buffer, packedLight, packedOverlay));
+                blockRenderer.renderSingleBlock(
+                        crop.displayState(trellis.getAge(), trellis.getFruitDirection()),
+                        poseStack, buffer, packedLight, packedOverlay));
     }
 }

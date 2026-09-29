@@ -2,9 +2,11 @@ package com.ingotcraft.create_farming_essentials.registry;
 
 import com.ingotcraft.create_farming_essentials.Create_farming_essentials;
 import com.ingotcraft.create_farming_essentials.api.TrellisCrops;
+import com.ingotcraft.create_farming_essentials.api.TrellisFruit;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 import net.minecraft.world.level.block.StemBlock;
 
 /**
@@ -13,11 +15,22 @@ import net.minecraft.world.level.block.StemBlock;
  */
 public final class VanillaTrellisCrops {
     public static void register() {
-        // Placeholder visuals: the fully grown stem model.
-        TrellisCrops.register(id("melon"), () -> Items.MELON_SEEDS,
-                () -> Blocks.MELON_STEM.defaultBlockState().setValue(StemBlock.AGE, StemBlock.MAX_AGE));
-        TrellisCrops.register(id("pumpkin"), () -> Items.PUMPKIN_SEEDS,
-                () -> Blocks.PUMPKIN_STEM.defaultBlockState().setValue(StemBlock.AGE, StemBlock.MAX_AGE));
+        // All 8 vanilla stem stages (0-7). Breaking a mature trellis rolls the mature STEM's loot
+        // table (seeds); the fruit itself is grown as a block beside the trellis, like a vanilla stem.
+        TrellisCrops.registerAgeProperty(id("melon"), () -> Items.MELON_SEEDS,
+                () -> Blocks.MELON_STEM, StemBlock.AGE,
+                () -> Blocks.MELON_STEM.defaultBlockState().setValue(StemBlock.AGE, StemBlock.MAX_AGE),
+                new TrellisFruit(
+                        () -> Blocks.MELON.defaultBlockState(),
+                        dir -> Blocks.ATTACHED_MELON_STEM.defaultBlockState()
+                                .setValue(HorizontalDirectionalBlock.FACING, dir)));
+        TrellisCrops.registerAgeProperty(id("pumpkin"), () -> Items.PUMPKIN_SEEDS,
+                () -> Blocks.PUMPKIN_STEM, StemBlock.AGE,
+                () -> Blocks.PUMPKIN_STEM.defaultBlockState().setValue(StemBlock.AGE, StemBlock.MAX_AGE),
+                new TrellisFruit(
+                        () -> Blocks.PUMPKIN.defaultBlockState(),
+                        dir -> Blocks.ATTACHED_PUMPKIN_STEM.defaultBlockState()
+                                .setValue(HorizontalDirectionalBlock.FACING, dir)));
     }
 
     private static ResourceLocation id(String path) {
