@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "S": { "item": "create:iron_sheet" },
+    "H": { "item": "create:shaft" },
+    "P": { "item": "create:fluid_pipe" }
+  },
+  "pattern": [
+    "SHS",
+    " P "
+  ],
+  "result": { "id": "create_farming_essentials:sprinkler", "count": 1 }
+}

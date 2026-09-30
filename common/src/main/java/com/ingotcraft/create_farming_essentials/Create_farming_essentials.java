@@ -4,6 +4,7 @@ import com.ingotcraft.create_farming_essentials.client.TrellisClient;
 import com.ingotcraft.create_farming_essentials.event.TrellisPlanting;
 import com.ingotcraft.create_farming_essentials.registry.ModBlockEntities;
 import com.ingotcraft.create_farming_essentials.registry.ModBlocks;
+import com.ingotcraft.create_farming_essentials.registry.VanillaSprinklerEffects;
 import com.ingotcraft.create_farming_essentials.registry.VanillaTrellisCrops;
 import dev.architectury.utils.Env;
 import dev.architectury.utils.EnvExecutor;
@@ -15,6 +16,7 @@ public final class Create_farming_essentials {
         ModBlocks.register();
         ModBlockEntities.register();
         VanillaTrellisCrops.register();
+        VanillaSprinklerEffects.register();
         TrellisPlanting.register();
 
         EnvExecutor.runInEnv(Env.CLIENT, () -> TrellisClient::init);

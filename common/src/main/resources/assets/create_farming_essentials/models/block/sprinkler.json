@@ -1,0 +1,92 @@
+{
+  "credit": "Made with Blockbench",
+  "textures": {
+    "0": "create:block/pipes",
+    "particle": "create:block/pipes"
+  },
+  "elements": [
+    {
+      "name": "sprinkler_base",
+      "from": [
+        3,
+        0,
+        3
+      ],
+      "to": [
+        13,
+        4,
+        13
+      ],
+      "rotation": {
+        "angle": 0,
+        "axis": "y",
+        "origin": [
+          3,
+          0,
+          3
+        ]
+      },
+      "faces": {
+        "north": {
+          "uv": [
+            2,
+            3,
+            4,
+            7.5
+          ],
+          "rotation": 90,
+          "texture": "#0"
+        },
+        "east": {
+          "uv": [
+            0.5,
+            3,
+            2.5,
+            7.5
+          ],
+          "rotation": 90,
+          "texture": "#0"
+        },
+        "south": {
+          "uv": [
+            0.5,
+            3,
+            2.5,
+            7.5
+          ],
+          "rotation": 90,
+          "texture": "#0"
+        },
+        "west": {
+          "uv": [
+            0.5,
+            3,
+            2.5,
+            7.5
+          ],
+          "rotation": 90,
+          "texture": "#0"
+        },
+        "up": {
+          "uv": [
+            1,
+            11,
+            6,
+            16
+          ],
+          "texture": "#0"
+        },
+        "down": {
+          "uv": [
+            11,
+            11,
+            16,
+            16
+          ],
+          "texture": "#0"
+        }
+      }
+    }
+  ],
+  "render_type": "minecraft:cutout"
+}

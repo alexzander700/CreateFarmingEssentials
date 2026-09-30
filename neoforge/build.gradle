@@ -42,7 +42,9 @@ dependencies {
     // Create Mod Dependencies
     modImplementation("com.simibubi.create:create-${rootProject.minecraft_version}:${rootProject.nf_create_version}:slim") { transitive = false }
     modImplementation "net.createmod.ponder:ponder-neoforge:${rootProject.nf_ponder_version}+mc${rootProject.minecraft_version}"
+    // The sprinkler's Flywheel visual uses flywheel.lib classes, which live in the full jar, not the api jar.
     modCompileOnly "dev.engine-room.flywheel:flywheel-neoforge-api-${rootProject.minecraft_version}:${rootProject.nf_flywheel_version}"
+    modCompileOnly "dev.engine-room.flywheel:flywheel-neoforge-${rootProject.minecraft_version}:${rootProject.nf_flywheel_version}"
     modRuntimeOnly "dev.engine-room.flywheel:flywheel-neoforge-${rootProject.minecraft_version}:${rootProject.nf_flywheel_version}"
     modImplementation "com.tterrag.registrate:Registrate:${rootProject.nf_registrate_version}"
 

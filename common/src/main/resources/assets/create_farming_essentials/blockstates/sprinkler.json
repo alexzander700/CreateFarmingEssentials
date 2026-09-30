@@ -1,0 +1,6 @@
+{
+  "variants": {
+    "half=bottom": { "model": "create_farming_essentials:block/sprinkler" },
+    "half=top": { "model": "create_farming_essentials:block/sprinkler", "x": 180 }
+  }
+}
