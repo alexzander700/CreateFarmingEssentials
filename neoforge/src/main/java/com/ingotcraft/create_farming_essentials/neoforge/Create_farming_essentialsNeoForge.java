@@ -1,6 +1,7 @@
 package com.ingotcraft.create_farming_essentials.neoforge;
 
 import com.ingotcraft.create_farming_essentials.Create_farming_essentials;
+import com.ingotcraft.create_farming_essentials.neoforge.ponder.FarmingPonder;
 import com.ingotcraft.create_farming_essentials.neoforge.sprinkler.SprinklerRegistry;
 import com.ingotcraft.create_farming_essentials.neoforge.sprinkler.client.SprinklerClient;
 import net.neoforged.api.distmarker.Dist;
@@ -19,6 +20,7 @@ public final class Create_farming_essentialsNeoForge {
         modBus.addListener(SprinklerRegistry::registerCapabilities);
         if (FMLEnvironment.dist == Dist.CLIENT) {
             SprinklerClient.init(modBus);
+            FarmingPonder.init(modBus);
         }
     }
 }

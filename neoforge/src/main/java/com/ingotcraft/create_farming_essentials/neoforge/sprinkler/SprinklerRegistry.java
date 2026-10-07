@@ -4,6 +4,7 @@ import com.ingotcraft.create_farming_essentials.Create_farming_essentials;
 import dev.architectury.registry.CreativeTabRegistry;
 import dev.architectury.registry.registries.DeferredRegister;
 import dev.architectury.registry.registries.RegistrySupplier;
+import net.minecraft.core.particles.ParticleType;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTabs;
@@ -27,6 +28,8 @@ public final class SprinklerRegistry {
             DeferredRegister.create(Create_farming_essentials.MOD_ID, Registries.ITEM);
     private static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES =
             DeferredRegister.create(Create_farming_essentials.MOD_ID, Registries.BLOCK_ENTITY_TYPE);
+    private static final DeferredRegister<ParticleType<?>> PARTICLE_TYPES =
+            DeferredRegister.create(Create_farming_essentials.MOD_ID, Registries.PARTICLE_TYPE);
 
     public static final RegistrySupplier<Block> SPRINKLER = BLOCKS.register("sprinkler", () ->
             new SprinklerBlock(BlockBehaviour.Properties.of()
@@ -42,10 +45,15 @@ public final class SprinklerRegistry {
             BLOCK_ENTITIES.register("sprinkler", () ->
                     BlockEntityType.Builder.of(SprinklerBlockEntity::new, SPRINKLER.get()).build(null));
 
+    /** The Sprinkler's droplet. See {@link FluidSprayOptions}. */
+    public static final RegistrySupplier<ParticleType<FluidSprayOptions>> FLUID_SPRAY =
+            PARTICLE_TYPES.register("fluid_spray", FluidSprayOptions.Type::new);
+
     public static void register() {
         BLOCKS.register();
         ITEMS.register();
         BLOCK_ENTITIES.register();
+        PARTICLE_TYPES.register();
         CreativeTabRegistry.append(CreativeModeTabs.FUNCTIONAL_BLOCKS, SPRINKLER_ITEM);
     }
 

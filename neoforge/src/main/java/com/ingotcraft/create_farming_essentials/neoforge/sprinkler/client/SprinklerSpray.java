@@ -1,19 +1,18 @@
 package com.ingotcraft.create_farming_essentials.neoforge.sprinkler.client;
 
+import com.ingotcraft.create_farming_essentials.neoforge.sprinkler.FluidSprayOptions;
 import com.ingotcraft.create_farming_essentials.neoforge.sprinkler.SprinklerBlockEntity;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.multiplayer.ClientLevel;
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.core.BlockPos;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.material.Fluid;
-import net.neoforged.neoforge.client.extensions.common.IClientFluidTypeExtensions;
-import net.neoforged.neoforge.fluids.FluidStack;
 
-/** Emits droplets from the two nozzle tips of the spinning head. Client only. */
+/**
+ * Emits droplets from the two nozzle tips of the spinning head. Client only.
+ * Droplets are requested with Level#addParticle (a FluidSprayOptions) rather than built here, so the same
+ * code works in the real client level and in Ponder's level.
+ */
 public final class SprinklerSpray {
     /**
      * Nozzle tips from the Blockbench model, in pixels: x, y, z of the tip, then the direction it points
@@ -30,21 +29,13 @@ public final class SprinklerSpray {
     public static void tick(SprinklerBlockEntity be) {
         Level level = be.getLevel();
         Fluid fluid = be.getFluid();
-        if (!(level instanceof ClientLevel clientLevel) || fluid == null
-                || !be.isRunning() || be.getSpeed() < MIN_SPEED) {
+        if (level == null || fluid == null || !be.isRunning() || be.getSpeed() < MIN_SPEED) {
             return;
         }
 
-        FluidStack stack = new FluidStack(fluid, 1000);
-        IClientFluidTypeExtensions fluidInfo = IClientFluidTypeExtensions.of(fluid);
-        ResourceLocation texture = fluidInfo.getStillTexture(stack);
-        if (texture == null) {
-            return;
-        }
-        TextureAtlasSprite sprite = Minecraft.getInstance().getTextureAtlas(InventoryMenu.BLOCK_ATLAS).apply(texture);
-        int tint = fluidInfo.getTintColor(stack);
+        FluidSprayOptions options = new FluidSprayOptions(BuiltInRegistries.FLUID.getKey(fluid));
 
-        RandomSource random = clientLevel.random;
+        RandomSource random = level.random;
         double radians = Math.toRadians(be.getAngle(1.0F));
         double cos = Math.cos(radians);
         double sin = Math.sin(radians);
@@ -76,9 +67,9 @@ public final class SprinklerSpray {
                     dy = -dy; dz = -dz;
                 }
 
-                Minecraft.getInstance().particleEngine.add(new FluidSprayParticle(clientLevel,
+                level.addParticle(options,
                         pos.getX() + 0.5 + sx, pos.getY() + 0.5 + sy, pos.getZ() + 0.5 + sz,
-                        dx, dy, dz, sprite, tint));
+                        dx, dy, dz);
             }
         }
     }

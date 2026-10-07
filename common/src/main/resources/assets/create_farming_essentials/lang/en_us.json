@@ -1,4 +1,30 @@
 {
   "block.create_farming_essentials.trellis": "Trellis",
-  "block.create_farming_essentials.sprinkler": "Sprinkler"
+  "block.create_farming_essentials.sprinkler": "Sprinkler",
+
+  "create_farming_essentials.ponder.trellis_planting.header": "Planting a Trellis",
+  "create_farming_essentials.ponder.trellis_planting.text_1": "Right-click the top of farmland with a Stick to plant a Trellis",
+  "create_farming_essentials.ponder.trellis_planting.text_2": "Right-click the Trellis with melon or pumpkin seeds to plant a vine inside it",
+  "create_farming_essentials.ponder.trellis_planting.text_3": "The vine grows about twice as fast as it would in the ground",
+  "create_farming_essentials.ponder.trellis_planting.text_4": "Once fully grown, it produces its fruit on the ground beside the Trellis",
+
+  "create_farming_essentials.ponder.trellis_harvest.header": "Harvesting a Trellis",
+  "create_farming_essentials.ponder.trellis_harvest.text_1": "Breaking a fully grown Trellis drops its Stick, its seeds and the crop's yield, rolled as if the tool had one extra level of Fortune",
+  "create_farming_essentials.ponder.trellis_harvest.text_2": "A Mechanical Harvester only cuts fully grown Trellises, and does not drop the Stick",
+
+  "create_farming_essentials.ponder.sprinkler_placement.header": "Placing a Sprinkler",
+  "create_farming_essentials.ponder.sprinkler_placement.text_1": "Placed on a floor, a Sprinkler stands upright and takes fluid from the block below it",
+  "create_farming_essentials.ponder.sprinkler_placement.text_2": "Placed on the underside of a ceiling, it hangs upside down and takes fluid from the block above it",
+  "create_farming_essentials.ponder.sprinkler_placement.text_3": "Placed against a wall, the upper half of the face hangs it from the ceiling and the lower half stands it on the floor",
+  "create_farming_essentials.ponder.sprinkler_placement.text_4": "A running Sprinkler reaches a 9x9x9 area",
+
+  "create_farming_essentials.ponder.sprinkler_water.header": "Spraying Water",
+  "create_farming_essentials.ponder.sprinkler_water.text_1": "The Sprinkler accepts fluid through its mounting face. Connect Create's pipes to it and it sprays whatever flows in",
+  "create_farming_essentials.ponder.sprinkler_water.text_2": "While fluid is flowing the head spins up and sprays. The fluid itself is used up",
+  "create_farming_essentials.ponder.sprinkler_water.text_3": "Water slowly hydrates farmland in reach, even with no water source nearby",
+
+  "create_farming_essentials.ponder.sprinkler_creatures.header": "Sprinklers and Creatures",
+  "create_farming_essentials.ponder.sprinkler_creatures.text_1": "Sprayed water hurts creatures that are sensitive to it, such as Endermen, just like rain does",
+  "create_farming_essentials.ponder.sprinkler_creatures.text_2": "Other fluids do other things: lava sets creatures alight, and honey slows them down",
+  "create_farming_essentials.ponder.sprinkler_creatures.text_3": "Other mods can register their own effects for their own fluids"
 }
