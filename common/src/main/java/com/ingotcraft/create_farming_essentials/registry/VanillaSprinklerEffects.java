@@ -1,15 +1,15 @@
 package com.ingotcraft.create_farming_essentials.registry;
 
-import com.ingotcraft.create_farming_essentials.advancement.ModAdvancements;
+import com.ingotcraft.create_farming_essentials.Create_farming_essentials;
 import com.ingotcraft.create_farming_essentials.api.SprinklerContext;
 import com.ingotcraft.create_farming_essentials.api.SprinklerEffect;
 import com.ingotcraft.create_farming_essentials.api.SprinklerEffects;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.FluidTags;
@@ -31,11 +31,25 @@ public final class VanillaSprinklerEffects {
             TagKey.create(Registries.FLUID, ResourceLocation.fromNamespaceAndPath("c", "honey"));
     private static final ResourceLocation CREATE_HONEY = ResourceLocation.fromNamespaceAndPath("create", "honey");
 
+    /** Fluids that act as fertilizer. Other mods add theirs to data/create_farming_essentials/tags/fluid/fertilizer.json. */
+    private static final TagKey<Fluid> FERTILIZER_TAG = TagKey.create(Registries.FLUID,
+            ResourceLocation.fromNamespaceAndPath(Create_farming_essentials.MOD_ID, "fertilizer"));
+    /** Blocks fertilizer can speed up: all crops, plus the trellis (which holds its crop in a block entity). */
+    private static final TagKey<Block> GROWTH_BOOSTABLE_TAG = TagKey.create(Registries.BLOCK,
+            ResourceLocation.fromNamespaceAndPath(Create_farming_essentials.MOD_ID, "growth_boostable"));
+
     /**
      * Chance, per farmland block per sprinkler pass (every 10 ticks), of gaining one level of moisture.
      * 0.1 means about one level per 5 seconds, so dry farmland takes roughly 35 seconds to become fully wet.
      */
     private static final float HYDRATION_CHANCE = 0.1F;
+
+    /**
+     * Chance, per boostable block per sprinkler pass (every 10 ticks), of an extra random tick.
+     * Vanilla gives a block about 0.015 random ticks per second (randomTickSpeed 3), and this gives
+     * 0.04 * 2 passes per second = 0.08 per second, so roughly 5x faster growth.
+     */
+    private static final float FERTILIZE_CHANCE = 0.04F;
 
     public static void register() {
         SprinklerEffects.register(new WaterEffect());
@@ -51,9 +65,6 @@ public final class VanillaSprinklerEffects {
             public void apply(SprinklerContext ctx) {
                 for (LivingEntity entity : ctx.area().livingEntities(ctx.level())) {
                     entity.igniteForSeconds(5.0F);
-                    if (entity instanceof ServerPlayer player) {
-                        ModAdvancements.award(player, ModAdvancements.HOT_HOT_HOT);
-                    }
                 }
             }
         });
@@ -70,12 +81,43 @@ public final class VanillaSprinklerEffects {
                 for (LivingEntity entity : ctx.area().livingEntities(ctx.level())) {
                     // Short duration, refreshed each pass: slowness ends soon after leaving the area.
                     entity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 40, 2, false, false, true));
-                    if (entity instanceof ServerPlayer player) {
-                        ModAdvancements.award(player, ModAdvancements.GRIZZLYS_DREAM);
-                    }
                 }
             }
         });
+
+        // Fertilizer: gives every crop (and trellis) in reach extra random ticks, so it grows faster.
+        SprinklerEffects.register(new FertilizerEffect());
+    }
+
+    /**
+     * Fertilizer: occasionally runs a block's own random tick, which is exactly what makes it grow normally.
+     * That means each block keeps its own rules (light level, growth roll, farmland bonus, a trellis's
+     * double growth attempts and its fruit), we just give it more chances to use them.
+     */
+    private static final class FertilizerEffect implements SprinklerEffect {
+        @Override
+        public boolean appliesTo(Fluid fluid) {
+            return fluid.is(FERTILIZER_TAG);
+        }
+
+        @Override
+        public void apply(SprinklerContext ctx) {
+            ServerLevel level = ctx.level();
+            RandomSource random = level.random;
+
+            for (BlockPos pos : ctx.area().positions()) {
+                if (random.nextFloat() >= FERTILIZE_CHANCE) {
+                    continue;
+                }
+                BlockState state = level.getBlockState(pos);
+                if (!state.is(GROWTH_BOOSTABLE_TAG)) {
+                    continue;
+                }
+                state.randomTick(level, pos, random);
+                level.sendParticles(ParticleTypes.HAPPY_VILLAGER,
+                        pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, 2, 0.25, 0.25, 0.25, 0.0);
+            }
+        }
     }
 
     /** Water: waters farmland gradually, puts out fires (blocks and burning creatures), and hurts water-sensitive mobs. */

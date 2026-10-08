@@ -1,0 +1,6 @@
+{
+  "replace": false,
+  "values": [
+    { "id": "create_italian_industries:liquid_fertilizer", "required": false }
+  ]
+}
