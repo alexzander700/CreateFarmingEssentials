@@ -1,10 +1,12 @@
 package com.ingotcraft.create_farming_essentials.event;
 
+import com.ingotcraft.create_farming_essentials.advancement.ModAdvancements;
 import com.ingotcraft.create_farming_essentials.registry.ModBlocks;
 import dev.architectury.event.EventResult;
 import dev.architectury.event.events.common.InteractionEvent;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.player.Player;
@@ -59,6 +61,9 @@ public final class TrellisPlanting {
 
         if (!player.getAbilities().instabuild) {
             stack.shrink(1);
+        }
+        if (player instanceof ServerPlayer serverPlayer) {
+            ModAdvancements.award(serverPlayer, ModAdvancements.STICK_Y_SITUATION);
         }
         return EventResult.interruptTrue();
     }

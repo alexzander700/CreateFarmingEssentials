@@ -26,5 +26,14 @@
   "create_farming_essentials.ponder.sprinkler_creatures.header": "Sprinklers and Creatures",
   "create_farming_essentials.ponder.sprinkler_creatures.text_1": "Sprayed water hurts creatures that are sensitive to it, such as Endermen, just like rain does",
   "create_farming_essentials.ponder.sprinkler_creatures.text_2": "Other fluids do other things: lava sets creatures alight, and honey slows them down",
-  "create_farming_essentials.ponder.sprinkler_creatures.text_3": "Other mods can register their own effects for their own fluids"
+  "create_farming_essentials.ponder.sprinkler_creatures.text_3": "Other mods can register their own effects for their own fluids",
+
+  "advancement.create_farming_essentials.root.title": "Create: Farming Essentials",
+  "advancement.create_farming_essentials.root.description": "Grow your farm with Create",
+  "advancement.create_farming_essentials.stick_y_situation.title": "Stick-y Situation",
+  "advancement.create_farming_essentials.stick_y_situation.description": "Plant a Trellis using a Stick",
+  "advancement.create_farming_essentials.grizzlys_dream.title": "Grizzly's Dream",
+  "advancement.create_farming_essentials.grizzlys_dream.description": "Spray yourself with honey, slowing you down",
+  "advancement.create_farming_essentials.hot_hot_hot.title": "Hot Hot Hot!",
+  "advancement.create_farming_essentials.hot_hot_hot.description": "Accidentally burn yourself using a Lava Sprinkler"
 }

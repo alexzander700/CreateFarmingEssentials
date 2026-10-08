@@ -1,0 +1,16 @@
+{
+  "display": {
+    "icon": { "id": "create_farming_essentials:sprinkler" },
+    "title": { "translate": "advancement.create_farming_essentials.root.title" },
+    "description": { "translate": "advancement.create_farming_essentials.root.description" },
+    "background": "minecraft:textures/gui/advancements/backgrounds/husbandry.png",
+    "frame": "task",
+    "show_toast": false,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "criteria": {
+    "tick": { "trigger": "minecraft:tick" }
+  },
+  "requirements": [ [ "tick" ] ]
+}

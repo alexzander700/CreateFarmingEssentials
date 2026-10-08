@@ -1,5 +1,6 @@
 package com.ingotcraft.create_farming_essentials.registry;
 
+import com.ingotcraft.create_farming_essentials.advancement.ModAdvancements;
 import com.ingotcraft.create_farming_essentials.api.SprinklerContext;
 import com.ingotcraft.create_farming_essentials.api.SprinklerEffect;
 import com.ingotcraft.create_farming_essentials.api.SprinklerEffects;
@@ -8,6 +9,7 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.FluidTags;
@@ -49,6 +51,9 @@ public final class VanillaSprinklerEffects {
             public void apply(SprinklerContext ctx) {
                 for (LivingEntity entity : ctx.area().livingEntities(ctx.level())) {
                     entity.igniteForSeconds(5.0F);
+                    if (entity instanceof ServerPlayer player) {
+                        ModAdvancements.award(player, ModAdvancements.HOT_HOT_HOT);
+                    }
                 }
             }
         });
@@ -65,6 +70,9 @@ public final class VanillaSprinklerEffects {
                 for (LivingEntity entity : ctx.area().livingEntities(ctx.level())) {
                     // Short duration, refreshed each pass: slowness ends soon after leaving the area.
                     entity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 40, 2, false, false, true));
+                    if (entity instanceof ServerPlayer player) {
+                        ModAdvancements.award(player, ModAdvancements.GRIZZLYS_DREAM);
+                    }
                 }
             }
         });
